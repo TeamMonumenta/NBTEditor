@@ -47,6 +47,5 @@ jobs:
         fi
 
     - name: Build
-      working-directory: ./plugins
       run: |
         ./gradlew build
