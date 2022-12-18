@@ -1,6 +1,8 @@
 plugins {
     `java-library`
     `maven-publish`
+    checkstyle
+    pmd
 }
 
 repositories {
@@ -24,4 +26,11 @@ java.targetCompatibility = JavaVersion.VERSION_1_8
 
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
+}
+
+pmd {
+    isConsoleOutput = true
+    toolVersion = "6.41.0"
+    ruleSets = listOf("$rootDir/pmd-ruleset.xml")
+    setIgnoreFailures(true)
 }
