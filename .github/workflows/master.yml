@@ -1,12 +1,14 @@
-name: Build master
+name: Build and deploy master
 
 on:
   push:
     branches:
-      - master
+    - master
+    tags:
+    - '*'
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -48,4 +50,4 @@ jobs:
 
     - name: Build
       run: |
-        ./gradlew build
+        ./gradlew publish
