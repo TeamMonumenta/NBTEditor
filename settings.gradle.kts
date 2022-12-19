@@ -1,4 +1,4 @@
-rootProject.name = "parent"
+rootProject.name = "nbteditor"
 include(":adapter_api")
 include(":adapter_v1_16_R3")
 include(":adapter_v1_18_R2")
