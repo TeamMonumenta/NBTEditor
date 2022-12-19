@@ -30,7 +30,7 @@ dependencies {
     errorprone("com.uber.nullaway:nullaway:0.9.5")
 }
 
-group = "com.goncalomb.bukkit"
+group = "com.playmonumenta"
 description = "NBTEditor"
 version = rootProject.version
 
