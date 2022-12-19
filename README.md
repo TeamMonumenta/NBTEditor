@@ -38,7 +38,7 @@ Download
 ```xml
     <repositories>
         <repository>
-            <id>libraryofsouls</id>
+            <id>nbteditor</id>
             <url>https://raw.githubusercontent.com/TeamMonumenta/NBTEditor/master/mvn-repo/</url>
         </repository>
     </repositories>
