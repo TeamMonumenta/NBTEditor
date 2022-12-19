@@ -87,4 +87,4 @@ NBTEditor is available under the GPLv3 license, check [LICENSE.txt](LICENSE.txt)
 [NBTEditor-FAQ]: https://github.com/goncalomb/NBTEditor/wiki/FAQ
 [LibraryOfSouls]: https://github.com/TeamMonumenta/library-of-souls
 [Monumenta-Discord]: https://discord.gg/monumenta
-[Packages]: https://github.com/TeamMonumenta/monumenta-redis-sync/packages
+[Packages]: https://github.com/TeamMonumenta/NBTEditor/packages/1753006
