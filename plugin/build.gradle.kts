@@ -210,7 +210,6 @@ tasks.create("build-deploy") {
             session(adminssh) {
                 put(shadowJar.archiveFile.get().getAsFile(), "/home/epic/project_epic/server_config/plugins")
                 execute("cd /home/epic/project_epic/server_config/plugins && rm -f nbteditor.jar && ln -s " + shadowJar.archiveFileName.get() + " nbteditor.jar")
-                execute("cd /home/epic/project_epic/mobs/plugins && rm -f nbteditor.jar && ln -s ../../server_config/plugins/nbteditor.jar")
             }
         }
     }
