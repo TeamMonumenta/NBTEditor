@@ -36,7 +36,6 @@ import com.goncalomb.bukkit.nbteditor.nbt.variables.FloatVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.HorseVariantVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.IntegerVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.ItemsVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.ListVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.LongVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.NBTUnboundVariableContainer;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.ParticleVariable;
@@ -57,7 +56,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Frog;
 
 public class EntityNBT extends EntityNBTBase {
 
