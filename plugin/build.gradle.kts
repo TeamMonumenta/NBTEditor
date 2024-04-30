@@ -23,11 +23,12 @@ dependencies {
     implementation(project(":adapter_v1_18_R2", "reobf"))
     implementation(project(":adapter_v1_19_R3", "reobf"))
     implementation("org.bstats:bstats-bukkit:1.5")
-    compileOnly("org.spigotmc:spigot-api:1.16.3-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
     testImplementation("junit:junit:4.13.1")
-    testImplementation("org.spigotmc:spigot-api:1.16.3-R0.1-SNAPSHOT")
+    testImplementation("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
     errorprone("com.google.errorprone:error_prone_core:2.10.0")
     errorprone("com.uber.nullaway:nullaway:0.9.5")
+    implementation("org.apache.commons:commons-lang3:3.0")
 }
 
 group = "com.playmonumenta"

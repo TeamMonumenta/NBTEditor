@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import java.util.logging.Logger;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Server;
 import org.bukkit.entity.EntityType;
 import org.junit.Test;
