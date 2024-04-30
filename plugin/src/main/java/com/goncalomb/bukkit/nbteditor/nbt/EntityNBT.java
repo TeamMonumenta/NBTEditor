@@ -187,7 +187,7 @@ public class EntityNBT extends EntityNBTBase {
 		cWarden.add("Suspects", new RawJsonListVariable("Suspects")); // I have no clue if this works
 
 		NBTUnboundVariableContainer cAllay = new NBTUnboundVariableContainer("Allay", cMob);
-		cAllay.add("CanDuplicate", new BooleanVariable("CanDuplicate"));
+		cAllay.add("CanDuplicate", new BooleanVariable("CanDuplicate")); // Doesn't seem to work, but not important enough to figure out
 		cAllay.add("DuplicationCooldown", new LongVariable("DuplicationCooldown"));
 		//TODO add allay inventory
 		//TODO add allay listener
@@ -294,7 +294,7 @@ public class EntityNBT extends EntityNBTBase {
 		}
 
 		NBTUnboundVariableContainer cFrog = new NBTUnboundVariableContainer("Frog", cBreed);
-		cFrog.add("Variant", new StringVariable("Variant")); // TODO: add list of possibilities (temperate, warm, cold)
+		cFrog.add("variant", new StringVariable("variant")); // TODO: add list of possibilities (temperate, warm, cold)
 
 		// Tameable SubTypes
 
