@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.potion.PotionEffectType;
 
 public final class PotionEffectsMap {
@@ -65,6 +65,7 @@ public final class PotionEffectsMap {
 		_potionEffects.put("ConduitPower", PotionEffectType.CONDUIT_POWER);
 		_potionEffects.put("BadOmen", PotionEffectType.BAD_OMEN);
 		_potionEffects.put("HeroOfTheVillage", PotionEffectType.HERO_OF_THE_VILLAGE);
+		_potionEffects.put("Darkness", PotionEffectType.DARKNESS);
 
 		List<String> potionEffectNames = new ArrayList<String>(_potionEffects.names());
 		Collections.sort(potionEffectNames, String.CASE_INSENSITIVE_ORDER);

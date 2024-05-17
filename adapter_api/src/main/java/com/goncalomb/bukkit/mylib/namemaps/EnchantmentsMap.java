@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.enchantments.Enchantment;
 
 public final class EnchantmentsMap {
@@ -71,6 +71,7 @@ public final class EnchantmentsMap {
 		_enchantments.put("Piercing", Enchantment.PIERCING);
 		_enchantments.put("QuickCharge", Enchantment.QUICK_CHARGE);
 		_enchantments.put("SoulSpeed", Enchantment.SOUL_SPEED);
+		_enchantments.put("SwiftSneak", Enchantment.SWIFT_SNEAK);
 
 		List<String> enchantmentNames = new ArrayList<String>(_enchantments.names());
 		Collections.sort(enchantmentNames, String.CASE_INSENSITIVE_ORDER);

@@ -41,6 +41,7 @@ import com.goncalomb.bukkit.nbteditor.nbt.variables.NBTUnboundVariableContainer;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.ParticleVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.PassengersVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.PotionVariable;
+import com.goncalomb.bukkit.nbteditor.nbt.variables.RawJsonListVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.RawJsonVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.RotationVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.ShortVariable;
@@ -182,6 +183,15 @@ public class EntityNBT extends EntityNBTBase {
 		cZombie.add("InWaterTime", new IntegerVariable("InWaterTime"));
 		cZombie.add("DrownedConversionTime", new IntegerVariable("DrownedConversionTime"));
 
+		NBTUnboundVariableContainer cWarden = new NBTUnboundVariableContainer("Warden", cMob);
+		cWarden.add("Suspects", new RawJsonListVariable("Suspects")); // I have no clue if this works
+
+		NBTUnboundVariableContainer cAllay = new NBTUnboundVariableContainer("Allay", cMob);
+		cAllay.add("CanDuplicate", new BooleanVariable("CanDuplicate")); // Doesn't seem to work, but not important enough to figure out
+		cAllay.add("DuplicationCooldown", new LongVariable("DuplicationCooldown"));
+		//TODO add allay inventory
+		//TODO add allay listener
+
 		// 1.15 and below
 		NBTUnboundVariableContainer cZombiePigman = new NBTUnboundVariableContainer("ZombiePigman", cZombie);
 		cZombiePigman.add("Anger", new ShortVariable("Anger"));
@@ -283,6 +293,9 @@ public class EntityNBT extends EntityNBTBase {
 			cGoat.add("HasRightHorn", new BooleanVariable("HasRightHorn"));
 		}
 
+		NBTUnboundVariableContainer cFrog = new NBTUnboundVariableContainer("Frog", cBreed);
+		cFrog.add("variant", new StringVariable("variant")); // TODO: add list of possibilities (temperate, warm, cold)
+
 		// Tameable SubTypes
 
 		NBTUnboundVariableContainer cOcelot = new NBTUnboundVariableContainer("Ocelot", cTameable);
@@ -306,6 +319,9 @@ public class EntityNBT extends EntityNBTBase {
 
 		NBTUnboundVariableContainer cTropicalFish = new NBTUnboundVariableContainer("TropicalFish", cFish);
 		cTropicalFish.add("Variant", new IntegerVariable("Variant"));
+
+		NBTUnboundVariableContainer cTadpole = new NBTUnboundVariableContainer("Tadpole", cFish);
+		cTadpole.add("Age", new IntegerVariable("Age"));
 
 		// Mob Entities
 
@@ -369,7 +385,6 @@ public class EntityNBT extends EntityNBTBase {
 		ENTITY_VARIABLES.put("minecraft:pufferfish", cPufferfish);
 		ENTITY_VARIABLES.put("minecraft:tropical_fish", cTropicalFish);
 
-		// TODO: add variables for 1.14 mobs
 		if (BukkitVersion.isVersion(14)) {
 			ENTITY_VARIABLES.put("minecraft:pillager", cMob);
 			ENTITY_VARIABLES.put("minecraft:panda", cMob);
@@ -397,6 +412,13 @@ public class EntityNBT extends EntityNBTBase {
 			ENTITY_VARIABLES.put("minecraft:axolotl", cAxolotl);
 			ENTITY_VARIABLES.put("minecraft:goat", cGoat);
 			ENTITY_VARIABLES.put("minecraft:glow_squid", cMob);
+		}
+
+		if (BukkitVersion.isVersion(19)) {
+			ENTITY_VARIABLES.put("minecraft:frog", cFrog);
+			ENTITY_VARIABLES.put("minecraft:tadpole", cTadpole);
+			ENTITY_VARIABLES.put("minecraft:warden", cWarden);
+			ENTITY_VARIABLES.put("minecraft:allay", cAllay);
 		}
 
 		// Projectile Entities

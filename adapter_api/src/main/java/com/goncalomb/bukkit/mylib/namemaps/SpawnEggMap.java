@@ -16,6 +16,8 @@ public class SpawnEggMap {
 					_spawnEggs.put(EntityTypeMap.getName(EntityType.MUSHROOM_COW), mat);
 				} else if (entityName.equals("ZOMBIE_PIGMAN")) {
 					_spawnEggs.put(EntityTypeMap.getName(EntityType.ZOMBIFIED_PIGLIN), mat);
+				} else if (entityName.equals("SNOW_GOLEM")) {
+					_spawnEggs.put(EntityTypeMap.getName(EntityType.SNOWMAN), mat);
 				} else {
 					EntityType entityType = EntityType.valueOf(entityName);
 					if (entityType != null) {
