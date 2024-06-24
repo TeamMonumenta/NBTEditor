@@ -19,7 +19,6 @@ dependencies {
     implementation(project(":adapter_v1_18_R2", "reobf"))
     implementation(project(":adapter_v1_19_R3", "reobf"))
     implementation(project(":adapter_v1_20_R3", "reobf"))
-    compileOnly("org.bstats:bstats-bukkit:1.5")
     compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
     testImplementation("junit:junit:4.13.1")
     testImplementation("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
