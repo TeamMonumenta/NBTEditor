@@ -7,24 +7,16 @@ plugins {
 
 repositories {
     mavenLocal()
-    maven {
-        url = uri("https://hub.spigotmc.org/nexus/content/groups/public/")
-    }
-
-    maven {
-        url = uri("https://repo.codemc.org/repository/maven-public")
-    }
-
-    maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
-    }
+    maven("https://hub.spigotmc.org/nexus/content/groups/public/")
+    maven("https://repo.codemc.org/repository/maven-public")
+    maven("https://repo.maven.apache.org/maven2/")
 }
 
 group = "com.goncalomb.bukkit"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 java.targetCompatibility = JavaVersion.VERSION_1_8
 
-tasks.withType<JavaCompile>() {
+tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 

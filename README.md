@@ -36,21 +36,41 @@ Download
 
 ## Maven dependency
 ```xml
-    <repositories>
-        <repository>
-            <id>nbteditor</id>
-            <url>https://raw.githubusercontent.com/TeamMonumenta/NBTEditor/master/mvn-repo/</url>
-        </repository>
-    </repositories>
+<repository>
+	<id>monumenta</id>
+	<name>Monumenta Maven Repo</name>
+	<url>https://maven.playmonumenta.com/releases</url>
+</repository>
+<dependencies>
+	<dependency>
+		<groupId>com.playmonumenta</groupId>
+		<artifactId>nbteditor</artifactId>
+		<version>4.0</version>
+		<scope>provided</scope>
+	</dependency>
+</dependencies>
+```
+Gradle (kotlin):
+```kts
+maven {
+    name = "monumenta"
+    url = uri("https://maven.playmonumenta.com/releases")
+}
 
-    <dependencies>
-        <dependency>
-            <groupId>com.playmonumenta</groupId>
-            <artifactId>nbteditor</artifactId>
-            <version>4.0</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+dependencies {
+	compileOnly("com.playmonumenta:nbteditor:4.0")
+}
+```
+Gradle (groovy):
+```groovy
+maven {
+    name "monumenta"
+    url "https://maven.playmonumenta.com/releases"
+}
+
+dependencies {
+	compileOnly "com.playmonumenta:nbteditor:4.0"
+}
 ```
 
 Note that the groupId was changed to clearly differentiate this maven artifact
