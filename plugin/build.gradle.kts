@@ -11,7 +11,7 @@ plugins {
     id("net.minecrell.plugin-yml.bukkit") version "0.5.1" // Generates plugin.yml
     id("net.ltgt.errorprone") version "2.0.2"
     id("net.ltgt.nullaway") version "1.3.0"
-    id("com.playmonumenta.deployment") version "1.0"
+    id("com.playmonumenta.deployment") version "1.+"
 }
 
 dependencies {
@@ -42,17 +42,27 @@ bukkit {
     softDepend = listOf()
 }
 
+java {
+    withSourcesJar()
+}
+
 publishing {
-    publications.create<MavenPublication>("maven") {
-        project.shadow.component(this)
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
     }
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/TeamMonumenta/NBTEditor")
+            name = "MonumentaMaven"
+            url = when (version.toString().endsWith("SNAPSHOT")) {
+                true -> uri("https://maven.playmonumenta.com/snapshots")
+                false -> uri("https://maven.playmonumenta.com/releases")
+            }
+
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
             }
         }
     }
