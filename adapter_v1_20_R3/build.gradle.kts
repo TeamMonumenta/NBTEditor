@@ -3,12 +3,16 @@ plugins {
     id("io.papermc.paperweight.userdev") version "1.3.8"
 }
 
-dependencies {
-    implementation(project(":adapter_api"))
-    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
+repositories {
+    mavenCentral()
 }
 
-description = "adapter_v1_18_R2"
+dependencies {
+    implementation(project(":adapter_api"))
+    paperDevBundle("1.20.4-R0.1-SNAPSHOT")
+}
+
+description = "adapter_v1_20_R3"
 version = rootProject.version
 
 tasks {

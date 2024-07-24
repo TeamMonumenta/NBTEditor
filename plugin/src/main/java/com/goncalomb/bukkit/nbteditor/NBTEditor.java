@@ -22,7 +22,6 @@ package com.goncalomb.bukkit.nbteditor;
 import java.io.File;
 import java.util.logging.Level;
 
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -84,12 +83,6 @@ public final class NBTEditor extends JavaPlugin {
 			getLogger().log(Level.SEVERE, "Error preparing reflection objects", e);
 			getLogger().severe("This version of NBTEditor is not compatible with this version of Bukkit");
 			return;
-		}
-
-		try {
-			new Metrics(this);
-		} catch (Exception e) {
-			Bukkit.getLogger().log(Level.INFO, "[bStats] " + e.getMessage());
 		}
 
 		MyCommandManager.register(new CommandBOS(), this);

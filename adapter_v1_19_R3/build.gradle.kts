@@ -1,6 +1,10 @@
 plugins {
     id("com.goncalomb.bukkit.java-conventions")
-    id("io.papermc.paperweight.userdev") version "1.3.3"
+    id("io.papermc.paperweight.userdev") version "1.3.8"
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
