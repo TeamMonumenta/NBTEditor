@@ -4,19 +4,22 @@ plugins {
     id("com.playmonumenta.gradle-config") version "1.+"
 }
 
+val commons = libs.commons
+
 monumenta {
     name("NBTEditor")
     pluginProject(":nbteditor")
     paper(
-        "com.goncalomb.bukkit.nbteditor.NBTEditor", BukkitPluginDescription.PluginLoadOrder.POSTWORLD, "1.18.2",
+        "com.goncalomb.bukkit.nbteditor.NBTEditor", BukkitPluginDescription.PluginLoadOrder.POSTWORLD, "1.19",
         authors = listOf("goncalomb", "Team Monumenta"),
         depends = listOf("CommandAPI"),
-        softDepends = listOf("MonumentaNetworkRelay")
+        softDepends = listOf("MonumentaNetworkRelay"),
+        apiJarVersion = "1.20.4-R0.1-SNAPSHOT"
     )
 
-    versionAdapterApi("adapter_api", paper = "1.18.2") {
+    versionAdapterApi("adapter_api", paper = "1.19.4") {
         dependencies {
-            implementation("org.apache.commons:commons-lang3:3.0")
+            implementation(commons)
         }
     }
     versionAdapter("adapter_v1_18_R2", "1.18.2")

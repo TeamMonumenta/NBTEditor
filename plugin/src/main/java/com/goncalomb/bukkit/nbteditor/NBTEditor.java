@@ -86,12 +86,6 @@ public final class NBTEditor extends JavaPlugin {
 			return;
 		}
 
-		try {
-			new Metrics(this);
-		} catch (Exception e) {
-			Bukkit.getLogger().log(Level.INFO, "[bStats] " + e.getMessage());
-		}
-
 		MyCommandManager.register(new CommandBOS(), this);
 		MyCommandManager.register(new CommandNBTSpawner(), this);
 		MyCommandManager.register(new CommandNBTItem(), this);
