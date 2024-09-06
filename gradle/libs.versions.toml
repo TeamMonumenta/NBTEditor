@@ -1,0 +1,9 @@
+[versions]
+bstats = "1.5"
+junit = "4.13.1"
+commons = "3.0"
+
+[libraries]
+bstats = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
+junit = { module = "junit:junit", version.ref = "junit" }
+commons = { module = "org.apache.commons:commons-lang3", version.ref = "commons" }
