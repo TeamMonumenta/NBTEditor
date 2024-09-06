@@ -42,7 +42,7 @@ public final class BukkitReflectAdapter_v1_20_R3 implements BukkitReflectAdapter
 				return true;
 			}
 		} catch (Exception ex) {
-			// Invalid, fallthrough to return false
+			ex.printStackTrace();
 		}
 		return false;
 	}

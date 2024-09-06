@@ -57,8 +57,8 @@ public final class NBTTypesAdapter_v1_20_R3 implements NBTTypesAdapter {
 		}
 	}
 
-	private HashMap<Class<?>, NBTTypes> _innerTypeMap = new HashMap<Class<?>, NBTTypes>();;
-	private HashMap<Class<?>, NBTTypes> _outerTypeMap = new HashMap<Class<?>, NBTTypes>();;
+	private HashMap<Class<?>, NBTTypes> _innerTypeMap = new HashMap<Class<?>, NBTTypes>();
+	private HashMap<Class<?>, NBTTypes> _outerTypeMap = new HashMap<Class<?>, NBTTypes>();
 
 	public NBTTypesAdapter_v1_20_R3() throws Exception {
 		registerNew(byte.class, ByteTag.class, (toWrap) -> ByteTag.valueOf((Byte) toWrap), (toUnwrap) -> ((ByteTag) toUnwrap).getAsByte());
