@@ -99,7 +99,7 @@ public final class NBTUtilsAdapter_v1_20_R3 implements NBTUtilsAdapter {
 
 	@Override
 	public void setItemStackTag(ItemStack item, NBTTagCompound tag) {
-		((CraftItemStack) item).handle.setTag((CompoundTag) (tag._handle));
+		((CraftItemStack) item).handle.setTag((CompoundTag) tag._handle);
 	}
 
 	@Override
