@@ -30,6 +30,7 @@ public class BukkitVersionAdapter_v1_20_R3 implements BukkitVersionAdapter {
 	private final int _minecraftVersionMajor;
 	private final int _minecraftVersionMinor;
 
+	@SuppressWarnings("deprecation")
 	public BukkitVersionAdapter_v1_20_R3() throws Exception {
 		if (Bukkit.getServer() == null) {
 			// test environment, CraftBukkit / Minecraft not available
