@@ -91,7 +91,7 @@ public class EntityNBT extends EntityNBTBase {
 		cMob.add("AttackTime", new ShortVariable("AttackTime"));
 		cMob.add("HurtTime", new ShortVariable("HurtTime"));
 		cMob.add("DeathTime", new ShortVariable("DeathTime"));
-		cMob.add("ActiveEffects", new EffectsVariable("ActiveEffects"));
+		cMob.add("ActiveEffects", new EffectsVariable("active_effects"));
 		cMob.add("HandDropChances", new FloatArrayVariable("HandDropChances", 2, 0f, 2f));
 		cMob.add("ArmorDropChances", new FloatArrayVariable("ArmorDropChances", 4, 0f, 2f));
 		cMob.add("DeathLootTable", new StringVariable("DeathLootTable"));
@@ -433,7 +433,7 @@ public class EntityNBT extends EntityNBTBase {
 		NBTUnboundVariableContainer cTippedArrow = new NBTUnboundVariableContainer("TippedArrow", cArrow);
 		cTippedArrow.add("Potion", new StringVariable("Potion"));
 		cTippedArrow.add("Color", new ColorVariable("Color"));
-		cTippedArrow.add("CustomPotionEffects", new EffectsVariable("CustomPotionEffects"));
+		cTippedArrow.add("CustomPotionEffects", new EffectsVariable("custom_potion_effects"));
 
 		NBTUnboundVariableContainer cSpectralArrow = new NBTUnboundVariableContainer("SpectralArrow", cArrow);
 		cSpectralArrow.add("Duration", new IntegerVariable("Duration", 0));
@@ -451,8 +451,8 @@ public class EntityNBT extends EntityNBTBase {
 		NBTUnboundVariableContainer cPotion = new NBTUnboundVariableContainer("Potion", cEntity);
 		cPotion.add("Item", new PotionVariable("Item"));
 
-		NBTUnboundVariableContainer cTrident = new NBTUnboundVariableContainer("Trident", cArrow);
-		cTrident.add("Trident", new SingleItemVariable("Trident"));
+		NBTUnboundVariableContainer cTrident = new NBTUnboundVariableContainer("Item", cArrow);
+		cTrident.add("Item", new SingleItemVariable("Item"));
 
 		ENTITY_VARIABLES.put("minecraft:arrow", cTippedArrow);
 		ENTITY_VARIABLES.put("minecraft:dragon_fireball", cFireball);

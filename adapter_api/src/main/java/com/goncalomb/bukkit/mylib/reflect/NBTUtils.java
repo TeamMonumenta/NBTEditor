@@ -69,8 +69,8 @@ public final class NBTUtils {
 
 	public static NBTTagList potionToNBTEffectsList(ItemStack potion) {
 		NBTTagCompound tag = getItemStackTag(potion);
-		if (tag.hasKey("CustomPotionEffects")) {
-			return tag.getList("CustomPotionEffects").clone();
+		if (tag.hasKey("custom_potion_effects")) {
+			return tag.getList("custom_potion_effects").clone();
 		}
 		// Fallback to default potion effect.
 
@@ -84,7 +84,7 @@ public final class NBTUtils {
 
 	public static ItemStack potionFromNBTEffectsList(NBTTagList effects) {
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setList("CustomPotionEffects", effects.clone());
+		tag.setList("custom_potion_effects", effects.clone());
 		tag.setString("Potion", "minecraft:mundane");
 		NBTTagCompound data = new NBTTagCompound();
 		data.setString("id", "minecraft:potion");
