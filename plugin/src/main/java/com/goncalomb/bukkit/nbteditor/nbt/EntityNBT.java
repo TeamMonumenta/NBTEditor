@@ -539,7 +539,7 @@ public class EntityNBT extends EntityNBTBase {
 		cFallingBlock.add("FallHurtMax", new IntegerVariable("FallHurtMax", 0));
 
 		NBTUnboundVariableContainer cTNT = new NBTUnboundVariableContainer("TNT", cEntity);
-		cTNT.add("Fuse", new ByteVariable("Fuse", (byte) 0));
+		cTNT.add("Fuse", new ByteVariable("fuse", (byte) 0));
 
 		ENTITY_VARIABLES.put("minecraft:falling_block", cFallingBlock);
 		ENTITY_VARIABLES.put("minecraft:tnt", cTNT);
@@ -559,7 +559,7 @@ public class EntityNBT extends EntityNBTBase {
 		cAreaEffectCloud.add("ParticleParam1", new IntegerVariable("ParticleParam1"));
 		cAreaEffectCloud.add("ParticleParam2", new IntegerVariable("ParticleParam2"));
 		cAreaEffectCloud.add("Potion", new StringVariable("Potion"));
-		cAreaEffectCloud.add("Effects", new EffectsVariable("Effects"));
+		cAreaEffectCloud.add("Effects", new EffectsVariable("effects"));
 
 		NBTUnboundVariableContainer cArmorStand = new NBTUnboundVariableContainer("ArmorStand", cEquippable);
 		cArmorStand.add("Marker", new BooleanVariable("Marker"));
