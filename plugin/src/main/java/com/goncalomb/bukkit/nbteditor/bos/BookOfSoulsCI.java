@@ -89,7 +89,7 @@ final class BookOfSoulsCI extends CustomItem {
 				player.sendMessage("§cAttempted to spawn VILLAGER entity from too far away! Get within 6 blocks.");
 			} else {
 				String entityName = entityNBT.getData().getString("CustomName");
-				player.sendMessage("§aSpawned entity %1$s §a(%2$s) at coordinates %3$s, %4$s, %5$s.".formatted((entityName == null) ? entityNBT.getEntityType().name().toLowerCase() : entityName, entityNBT.getEntityType().name(), location.getBlockX(), location.getBlockY(), location.getBlockZ()));
+				player.sendMessage("§aSpawned entity %1$s §a(%2$s) at coordinates %3$s, %4$s, %5$s.".formatted((entityName == null) ? entityNBT.getEntityType().name() : entityName, entityNBT.getEntityType().name(), location.getBlockX(), location.getBlockY(), location.getBlockZ()));
 				entityNBT.spawn(location);
 			}
 			event.setCancelled(true);
