@@ -19,10 +19,12 @@
 
 package com.goncalomb.bukkit.nbteditor.bos;
 
+import com.goncalomb.bukkit.nbteditor.nbt.EntityNBT;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDispenseEvent;
@@ -82,7 +84,14 @@ final class BookOfSoulsCI extends CustomItem {
 		}
 
 		if (location != null) {
-			bos.getEntityNBT().spawn(location);
+			EntityNBT entityNBT = bos.getEntityNBT();
+			if (entityNBT.getEntityType() == EntityType.VILLAGER && event.getPlayer().getLocation().distance(location) >= 6) {
+				player.sendMessage("§cAttempted to spawn VILLAGER entity from too far away! Get within 6 blocks.");
+			} else {
+				String entityName = entityNBT.getData().getString("CustomName");
+				player.sendMessage("§aSpawned entity %1$s §a(%2$s) at coordinates %3$s, %4$s, %5$s.".formatted((entityName == null) ? entityNBT.getEntityType().name().toLowerCase() : entityName, entityNBT.getEntityType().name(), location.getBlockX(), location.getBlockY(), location.getBlockZ()));
+				entityNBT.spawn(location);
+			}
 			event.setCancelled(true);
 		} else {
 			player.sendMessage("§cNo block in sight!");
