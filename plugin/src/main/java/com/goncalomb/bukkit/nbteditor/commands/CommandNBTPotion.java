@@ -53,7 +53,12 @@ public class CommandNBTPotion extends MyCommand {
 				}
 				int duration = (effect == PotionEffectType.HARM || effect == PotionEffectType.HEAL ? 0 : 600);
 				if (args.length == 3) {
-					duration = CommandUtils.parseTickDuration(args[2]);
+					Object dur = args[2];
+					if ("infinite".equals(dur)) {
+						duration = -1;
+					} else {
+						duration = CommandUtils.parseTickDuration(args[2]);
+					}
 				}
 				item.meta.setBasePotionData(new PotionData(PotionType.UNCRAFTABLE));
 				if(level == 0) {
