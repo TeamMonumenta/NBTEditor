@@ -323,6 +323,30 @@ public class EntityNBT extends EntityNBTBase {
 		NBTUnboundVariableContainer cTadpole = new NBTUnboundVariableContainer("Tadpole", cFish);
 		cTadpole.add("Age", new IntegerVariable("Age"));
 
+		// more stuff post-1.19.3(?)
+
+		NBTUnboundVariableContainer cCamel = new NBTUnboundVariableContainer("Camel", cBreed);
+		cCamel.add("Bred", new BooleanVariable("Bred"));
+		cCamel.add("EatingHaystack", new BooleanVariable("EatingHaystack"));
+		cCamel.add("Owner", new StringVariable("Owner"));
+		cCamel.add("Tamed", new BooleanVariable("Tame"));
+		cCamel.add("Temper", new IntegerVariable("Temper", 0, 100));
+		cCamel.add("LastPoseTick", new LongVariable("LastPoseTick"));
+
+		NBTUnboundVariableContainer cArmadillo = new NBTUnboundVariableContainer("Armadillo", cBreed);
+		cArmadillo.add("scute_time", new IntegerVariable("scute_time"));
+		cArmadillo.add("state", new StringVariable("state"));
+
+		NBTUnboundVariableContainer cHappyGhast = new NBTUnboundVariableContainer("HappyGhast", cBreed);
+		cHappyGhast.add("still_timeout", new IntegerVariable("still_timeout"));
+
+		NBTUnboundVariableContainer cCopperGolem = new NBTUnboundVariableContainer("CopperGolem", cMob);
+		cCopperGolem.add("weather_state", new StringVariable("weather_state"));
+		cCopperGolem.add("next_weather_age", new LongVariable("next_weather_age"));
+
+		NBTUnboundVariableContainer cZombieNautilus = new NBTUnboundVariableContainer("ZombieNautilus", cTameable);
+		cZombieNautilus.add("variant", new StringVariable("variant"));
+
 		// Mob Entities
 
 		ENTITY_VARIABLES.put("minecraft:bat", cMob);
@@ -419,6 +443,32 @@ public class EntityNBT extends EntityNBTBase {
 			ENTITY_VARIABLES.put("minecraft:tadpole", cTadpole);
 			ENTITY_VARIABLES.put("minecraft:warden", cWarden);
 			ENTITY_VARIABLES.put("minecraft:allay", cAllay);
+		}
+
+		if (BukkitVersion.isVersion(20)) {
+			ENTITY_VARIABLES.put("minecraft:camel", cCamel);
+			ENTITY_VARIABLES.put("minecraft:sniffer", cBreed);
+		}
+
+		if (BukkitVersion.isVersion(21)) {
+			ENTITY_VARIABLES.put("minecraft:breeze", cMob);
+			ENTITY_VARIABLES.put("minecraft:armadillo", cArmadillo);
+			ENTITY_VARIABLES.put("minecraft:bogged", cMob);
+
+			// i am 100% sure the mc wiki is lying about the creaking not having other entity data
+			// but this whole file will have to be massively overhauled when we do update to
+			// future versions where a ton of these property names change anyway, so
+			ENTITY_VARIABLES.put("minecraft:creaking", cMob);
+		}
+
+		if (BukkitVersion.isVersion(1, 26)) { // 26.1
+			// not sure how to handle entities added in a patch version (1.21.6, 1.21.9, 1.21.11) so i'm putting them here instead
+			ENTITY_VARIABLES.put("minecraft:happy_ghast", cHappyGhast);
+			ENTITY_VARIABLES.put("minecraft:copper_golem", cCopperGolem);
+			ENTITY_VARIABLES.put("minecraft:nautilus", cBreed);
+			ENTITY_VARIABLES.put("minecraft:zombie_nautilus", cZombieNautilus);
+			ENTITY_VARIABLES.put("minecraft:camel_husk", cCamel);
+			ENTITY_VARIABLES.put("minecraft:parched", cMob);
 		}
 
 		// Projectile Entities
