@@ -61,7 +61,7 @@ public final class HorseVariantVariable extends NBTVariable {
 
 	@Override
 	public String getFormat() {
-		return "Two integers, the fist one controls the horse markings (0 to 4), the second one controls the color (0 to 6), e.g. '4 1'.";
+		return "Two integers, the first one controls the horse markings (0 to 4), the second one controls the color (0 to 6), e.g. '4 1'.";
 	}
 
 }
