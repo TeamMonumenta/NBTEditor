@@ -19,6 +19,7 @@
 
 package com.goncalomb.bukkit.mylib.reflect;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import org.bukkit.Location;
@@ -54,10 +55,15 @@ public final class NBTUtils {
 	}
 
 	public static Entity spawnEntity(NBTTagCompound data, Location location) {
+		return spawnEntity(data, location, e -> {
+		});
+	}
+
+	public static Entity spawnEntity(NBTTagCompound data, Location location, Consumer<Entity> preSpawnAction) {
 		if (adapter == null) {
 			throw new RuntimeException("Version adapter is not loaded");
 		}
-		return adapter.spawnEntity(data, location);
+		return adapter.spawnEntity(data, location, preSpawnAction);
 	}
 
 	public static NBTTagCompound getEntityNBTData(Entity entity) {
