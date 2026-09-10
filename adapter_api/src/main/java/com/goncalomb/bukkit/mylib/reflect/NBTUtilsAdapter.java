@@ -19,6 +19,7 @@
 
 package com.goncalomb.bukkit.mylib.reflect;
 
+import java.util.function.Consumer;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -29,7 +30,7 @@ public interface NBTUtilsAdapter {
 
 	NBTTagCompound itemStackToNBTData(ItemStack stack);
 
-	Entity spawnEntity(NBTTagCompound data, Location location);
+	Entity spawnEntity(NBTTagCompound data, Location location, Consumer<Entity> preSpawnAction);
 
 	NBTTagCompound getEntityNBTData(Entity entity);
 

@@ -21,6 +21,7 @@ package com.goncalomb.bukkit.nbteditor.nbt;
 
 import java.util.Arrays;
 
+import java.util.function.Consumer;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -168,6 +169,10 @@ abstract class EntityNBTBase extends BaseNBT {
 
 	public Entity spawn(Location location) {
 		return NBTUtils.spawnEntity(_data, location);
+	}
+
+	public Entity spawn(Location location, Consumer<Entity> preSpawnAction) {
+		return NBTUtils.spawnEntity(_data, location, preSpawnAction);
 	}
 
 	public String serialize() {
