@@ -48,7 +48,13 @@ public final class NBTUtilsAdapter_v1_20_R3 implements NBTUtilsAdapter {
 	@Override
 	public NBTTagCompound itemStackToNBTData(ItemStack stack) {
 		NBTTagCompound data = new NBTTagCompound();
-		((CraftItemStack) stack).handle.save((CompoundTag) data._handle);
+		net.minecraft.world.item.ItemStack handle = ((CraftItemStack) stack).handle;
+		CompoundTag compound = (CompoundTag) data._handle;
+		if (handle == null) {
+			net.minecraft.world.item.ItemStack.EMPTY.save(compound);
+		} else {
+			handle.save(compound);
+		}
 		return data;
 	}
 
@@ -97,13 +103,21 @@ public final class NBTUtilsAdapter_v1_20_R3 implements NBTUtilsAdapter {
 
 	@Override
 	public NBTTagCompound getItemStackTag(ItemStack item) {
-		Object tag = ((CraftItemStack) item).handle.getTag();
+		net.minecraft.world.item.ItemStack handle = ((CraftItemStack) item).handle;
+		if (handle == null) {
+			return new NBTTagCompound();
+		}
+		Object tag = handle.getTag();
 		return (tag == null ? new NBTTagCompound() : new NBTTagCompound(tag));
 	}
 
 	@Override
 	public void setItemStackTag(ItemStack item, NBTTagCompound tag) {
-		((CraftItemStack) item).handle.setTag((CompoundTag) tag._handle);
+		net.minecraft.world.item.ItemStack handle = ((CraftItemStack) item).handle;
+		if (handle == null) {
+			return;
+		}
+		handle.setTag((CompoundTag) tag._handle);
 	}
 
 	@Override
