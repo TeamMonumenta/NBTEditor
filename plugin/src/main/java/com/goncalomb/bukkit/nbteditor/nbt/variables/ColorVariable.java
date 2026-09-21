@@ -25,21 +25,42 @@ import org.bukkit.entity.Player;
 import com.goncalomb.bukkit.mylib.reflect.NBTTagCompound;
 
 public class ColorVariable extends NBTVariable {
+	private final boolean hasAlpha;
+	private final boolean canBeUnset;
 
 	public ColorVariable(String key) {
+		this(key, false, false);
+	}
+
+	public ColorVariable(String key, boolean hasAlpha, boolean canBeUnset) {
 		super(key);
+		this.hasAlpha = hasAlpha;
+		this.canBeUnset = canBeUnset;
 	}
 
 	@Override
 	public boolean set(String value, Player player) {
 		NBTTagCompound data = data();
 		if (!value.startsWith("#")) {
+			if (canBeUnset && value.equals("-1")) {
+				data.setInt(_key, -1);
+				return true;
+			}
 			value = "#" + value;
 		}
-		try {
-			java.awt.Color color = java.awt.Color.decode(value);
-			int c = Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()).asRGB();
-			data.setInt(_key, c);
+
+		// minor datafixing
+		if (value.length() == 4) { // short format, #123 -> #112233
+			value = value.substring(0, 2) + value.substring(1, 3) + value.substring(2, 4);
+		} else if (hasAlpha && value.length() == 5) { // short format but with alpha
+			value = value.substring(0, 2) + value.substring(1, 3) + value.substring(2, 4) + value.substring(3, 5);
+		} else if (value.length() != 7 && (!hasAlpha || value.length() != 9)) {
+			return false;
+		}
+
+        try {
+			int color = Integer.decode(value);
+			data.setInt(_key, color);
 			return true;
 		} catch (NumberFormatException e) {
 			return false;
@@ -58,7 +79,9 @@ public class ColorVariable extends NBTVariable {
 
 	@Override
 	public String getFormat() {
-		return "RGB format, #FFFFFF (e.g. #FF0000 for red).";
+		return "RGB format, #FFFFFF (e.g. #FF0000 for red)."
+				+ (hasAlpha ? " Accepts alpha channel in the format ARGB, e.g. #80FF0000 for half-transparent red, " +
+				"where FF is fully opaque." : "");
 	}
 
 }
