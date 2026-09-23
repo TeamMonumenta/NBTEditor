@@ -23,39 +23,16 @@ import com.goncalomb.bukkit.mylib.namemaps.EntityTypeMap;
 import com.goncalomb.bukkit.mylib.reflect.BukkitVersion;
 import com.goncalomb.bukkit.mylib.reflect.NBTTagCompound;
 import com.goncalomb.bukkit.nbteditor.bos.BookOfSouls;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.BlockStateVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.BooleanVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.ByteVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.ColorVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.ContainerVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.DoubleVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.EffectsVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.FireworksItemVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.FloatArrayVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.FloatVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.HorseVariantVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.IntegerVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.ItemsVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.LongVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.NBTUnboundVariableContainer;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.ParticleVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.PassengersVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.PotionVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.RawJsonListVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.RawJsonVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.RotationVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.ShortVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.SingleItemVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.StringListVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.StringVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.VectorVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.VillagerCareerVariable;
-import com.goncalomb.bukkit.nbteditor.nbt.variables.VillagerOffersVariable;
+import com.goncalomb.bukkit.nbteditor.nbt.variables.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ItemDisplay;
+import org.bukkit.entity.TextDisplay;
 
 public class EntityNBT extends EntityNBTBase {
 
@@ -593,6 +570,54 @@ public class EntityNBT extends EntityNBTBase {
 
 		ENTITY_VARIABLES.put("minecraft:falling_block", cFallingBlock);
 		ENTITY_VARIABLES.put("minecraft:tnt", cTNT);
+
+		// Technical Entities
+		// todo: does this plugin support compounds, i.e. {brightness:{block:0,sky:15}}? my guess is no. oh well
+
+		NBTUnboundVariableContainer cDisplay = new NBTUnboundVariableContainer("Display", cEntity);
+		cDisplay.add("Billboard", new EnumVariable("billboard", Display.Billboard.class));
+		// cDisplay.add("Brightness", <?????>);
+		cDisplay.add("GlowColorOverride", new ColorVariable("glow_color_override"));
+		cDisplay.add("Height", new FloatVariable("height", 0));
+		cDisplay.add("Width", new FloatVariable("width", 0));
+		cDisplay.add("InterpolationDuration", new IntegerVariable("interpolation_duration"));
+		cDisplay.add("TeleportDuration", new IntegerVariable("teleport_duration", 0, 59));
+		cDisplay.add("StartInterpolation", new IntegerVariable("start_interpolation"));
+		cDisplay.add("ShadowRadius", new FloatVariable("shadow_radius", 0, 64));
+		cDisplay.add("ShadowStrength", new FloatVariable("shadow_strength"));
+		cDisplay.add("ViewRange", new FloatVariable("view_range"));
+		// no way in hell i'm figuring out how to implement the fancy tagcompound form in here
+		cDisplay.add("Transformation", new FloatArrayVariable("transformation", 16));
+
+		NBTUnboundVariableContainer cItemDisplay = new NBTUnboundVariableContainer("ItemDisplay", cDisplay);
+		cItemDisplay.add("Item", new SingleItemVariable("item"));
+		cItemDisplay.add("ItemDisplayTransform", new EnumVariable("item_display", ItemDisplay.ItemDisplayTransform.class));
+
+		NBTUnboundVariableContainer cBlockDisplay = new NBTUnboundVariableContainer("BlockDisplay", cDisplay);
+		cBlockDisplay.add("BlockState", new BlockStateVariable("block_state")); // no clue if this works lmao
+
+		NBTUnboundVariableContainer cTextDisplay = new NBTUnboundVariableContainer("TextDisplay", cDisplay);
+		cTextDisplay.add("Alignment", new EnumVariable("alignment", TextDisplay.TextAlignment.class));
+		cTextDisplay.add("Background", new ColorVariable("background", true));
+		cTextDisplay.add("DefaultBackground", new BooleanVariable("default_background"));
+		cTextDisplay.add("LineWidth", new IntegerVariable("line_width"));
+		cTextDisplay.add("SeeThroughBlocks", new BooleanVariable("see_through"));
+		cTextDisplay.add("TextShadow", new BooleanVariable("shadow"));
+		cTextDisplay.add("Text", new RawJsonVariable("text"));
+		cTextDisplay.add("TextOpacity", new ByteVariable("text_opacity"));
+
+		NBTUnboundVariableContainer cInteraction = new NBTUnboundVariableContainer("Interaction", cEntity);
+		cInteraction.add("Height", new FloatVariable("height"));
+		cInteraction.add("Width", new FloatVariable("width"));
+		cInteraction.add("Response", new BooleanVariable("response"));
+
+		// markers have no nbt other than default entity data
+
+		ENTITY_VARIABLES.put("minecraft:item_display", cItemDisplay);
+		ENTITY_VARIABLES.put("minecraft:block_display", cBlockDisplay);
+		ENTITY_VARIABLES.put("minecraft:text_display", cTextDisplay);
+		ENTITY_VARIABLES.put("minecraft:interaction", cInteraction);
+		ENTITY_VARIABLES.put("minecraft:marker", cEntity);
 
 		// Other Entities
 

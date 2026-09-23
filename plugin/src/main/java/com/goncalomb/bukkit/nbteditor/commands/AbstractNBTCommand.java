@@ -122,7 +122,7 @@ public abstract class AbstractNBTCommand<T extends BaseNBT> extends MyCommand {
 					}
 				}
 			}
-			sender.sendMessage(ChatColor.YELLOW + variable.getFormat());
+			sender.sendMessage(variable.getFormatComponent());
 		} else {
 			sender.sendMessage(MessageFormat.format("§cVariable {0} not found!", args[0]));
 		}
