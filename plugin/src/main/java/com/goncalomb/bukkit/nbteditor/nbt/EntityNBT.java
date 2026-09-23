@@ -577,7 +577,7 @@ public class EntityNBT extends EntityNBTBase {
 		NBTUnboundVariableContainer cDisplay = new NBTUnboundVariableContainer("Display", cEntity);
 		cDisplay.add("Billboard", new EnumVariable("billboard", Display.Billboard.class));
 		// cDisplay.add("Brightness", <?????>);
-		cDisplay.add("GlowColorOverride", new ColorVariable("glow_color_override", false, true));
+		cDisplay.add("GlowColorOverride", new ColorVariable("glow_color_override"));
 		cDisplay.add("Height", new FloatVariable("height", 0));
 		cDisplay.add("Width", new FloatVariable("width", 0));
 		cDisplay.add("InterpolationDuration", new IntegerVariable("interpolation_duration"));
@@ -598,7 +598,7 @@ public class EntityNBT extends EntityNBTBase {
 
 		NBTUnboundVariableContainer cTextDisplay = new NBTUnboundVariableContainer("TextDisplay", cDisplay);
 		cTextDisplay.add("Alignment", new EnumVariable("alignment", TextDisplay.TextAlignment.class));
-		cTextDisplay.add("Background", new ColorVariable("background", true, false));
+		cTextDisplay.add("Background", new ColorVariable("background", true));
 		cTextDisplay.add("DefaultBackground", new BooleanVariable("default_background"));
 		cTextDisplay.add("LineWidth", new IntegerVariable("line_width"));
 		cTextDisplay.add("SeeThroughBlocks", new BooleanVariable("see_through"));

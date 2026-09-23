@@ -19,48 +19,53 @@
 
 package com.goncalomb.bukkit.nbteditor.nbt.variables;
 
+import java.util.Locale;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
 
 import com.goncalomb.bukkit.mylib.reflect.NBTTagCompound;
 
 public class ColorVariable extends NBTVariable {
-	private final boolean hasAlpha;
-	private final boolean canBeUnset;
+	private final boolean hasAlpha; // optional alpha channel, can be omitted, minecraft uses ARGB everywhere
 
 	public ColorVariable(String key) {
-		this(key, false, false);
+		this(key, false);
 	}
 
-	public ColorVariable(String key, boolean hasAlpha, boolean canBeUnset) {
+	public ColorVariable(String key, boolean hasAlpha) {
 		super(key);
 		this.hasAlpha = hasAlpha;
-		this.canBeUnset = canBeUnset;
 	}
 
 	@Override
 	public boolean set(String value, Player player) {
 		NBTTagCompound data = data();
 		if (!value.startsWith("#")) {
-			if (canBeUnset && value.equals("-1")) {
-				data.setInt(_key, -1);
-				return true;
-			}
 			value = "#" + value;
 		}
 
 		// minor datafixing
 		if (value.length() == 4) { // short format, #123 -> #112233
-			value = value.substring(0, 2) + value.substring(1, 3) + value.substring(2, 4);
+			value = value.substring(0, 2) + value.substring(1, 3) + value.substring(2, 4) + value.substring(3, 4);
 		} else if (hasAlpha && value.length() == 5) { // short format but with alpha
-			value = value.substring(0, 2) + value.substring(1, 3) + value.substring(2, 4) + value.substring(3, 5);
+			value = value.substring(0, 2) + value.substring(1, 3) + value.substring(2, 4) + value.substring(3, 5) + value.substring(4, 5);
 		} else if (value.length() != 7 && (!hasAlpha || value.length() != 9)) {
 			return false;
 		}
+		if (hasAlpha && value.length() == 7) {
+			value = "#FF" + value.substring(1); // full opacity
+		}
 
         try {
-			int color = Integer.decode(value);
-			data.setInt(_key, color);
+			// java doesn't have unsigned ints but this value might use all 32 bits if it has alpha
+			// value will be in [0, 2^32-1], subtract 2^32 from values >= 2^31 to fit in range [-2^31, 2^31-1]
+			long color = Long.decode(value);
+			if (color >= 1L << 31) {
+				color -= 1L << 32;
+			}
+			int colorint = Math.toIntExact(color);
+			data.setInt(_key, colorint);
 			return true;
 		} catch (NumberFormatException e) {
 			return false;
@@ -70,15 +75,18 @@ public class ColorVariable extends NBTVariable {
 	@Override
 	public String get() {
 		NBTTagCompound data = data();
-		int c = data.getInt(_key);
-		if (c == -1) {
-			return "-1";
+		long color = data.getInt(_key);
+		// java doesn't have unsigned ints but this value covers the full 32 bits if it has alpha, add 2^32 to get correct value
+		color = color < 0 ? color + (1L << 32) : color;
+		StringBuilder colorstr = new StringBuilder(Long.toString(color, 16).toUpperCase(Locale.ROOT));
+		while (colorstr.length() < 8) {
+			colorstr.insert(0, "0");
 		}
-		Color color = Color.fromRGB(c);
-		String r = Integer.toHexString(color.getRed());
-		String g = Integer.toHexString(color.getGreen());
-		String b = Integer.toHexString(color.getBlue());
-		return "#" + (r.length() == 1 ? "0" + r : r) + (g.length() == 1 ? "0" + g : g) + (b.length() == 1 ? "0" + b : b);
+		// hide alpha channel if it's fully opaque
+		if (!hasAlpha || colorstr.substring(0, 2).equals("FF")) {
+            colorstr.replace(0, 2, "");
+		}
+		return "#" + colorstr;
 	}
 
 	@Override
