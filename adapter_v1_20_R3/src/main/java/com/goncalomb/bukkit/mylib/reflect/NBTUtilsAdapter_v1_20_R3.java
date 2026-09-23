@@ -20,6 +20,7 @@
 package com.goncalomb.bukkit.mylib.reflect;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
@@ -52,14 +53,17 @@ public final class NBTUtilsAdapter_v1_20_R3 implements NBTUtilsAdapter {
 	}
 
 	@Override
-	public Entity spawnEntity(NBTTagCompound data, Location location) {
+	public Entity spawnEntity(NBTTagCompound data, Location location, Consumer<Entity> preSpawnAction) {
 		ServerLevel world = ((CraftWorld) location.getWorld()).getHandle();
 
 		net.minecraft.world.entity.Entity entity = EntityType.loadEntityRecursive((CompoundTag) data._handle, world, (spawnedEntity) -> {
 			spawnedEntity.setPos(location.getX(), location.getY(), location.getZ());
 			return spawnedEntity;
 		});
-		Objects.requireNonNull(entity).getSelfAndPassengers().forEach(world::addFreshEntity);
+		Objects.requireNonNull(entity).getSelfAndPassengers().forEach((e) -> {
+			preSpawnAction.accept(e.getBukkitEntity());
+			world.addFreshEntity(e);
+		});
 		return entity.getBukkitEntity();
 	}
 
