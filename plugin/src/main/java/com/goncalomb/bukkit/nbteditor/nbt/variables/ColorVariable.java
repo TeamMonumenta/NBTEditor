@@ -70,7 +70,11 @@ public class ColorVariable extends NBTVariable {
 	@Override
 	public String get() {
 		NBTTagCompound data = data();
-		Color color = Color.fromRGB(data.getInt(_key));
+		int c = data.getInt(_key);
+		if (c == -1) {
+			return "-1";
+		}
+		Color color = Color.fromRGB(c);
 		String r = Integer.toHexString(color.getRed());
 		String g = Integer.toHexString(color.getGreen());
 		String b = Integer.toHexString(color.getBlue());
