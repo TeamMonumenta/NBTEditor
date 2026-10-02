@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
@@ -122,7 +121,7 @@ public abstract class AbstractNBTCommand<T extends BaseNBT> extends MyCommand {
 					}
 				}
 			}
-			sender.sendMessage(ChatColor.YELLOW + variable.getFormat());
+			sender.sendMessage(variable.getFormatComponent());
 		} else {
 			sender.sendMessage(MessageFormat.format("§cVariable {0} not found!", args[0]));
 		}

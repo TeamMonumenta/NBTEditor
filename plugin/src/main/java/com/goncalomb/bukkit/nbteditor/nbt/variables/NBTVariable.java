@@ -3,6 +3,8 @@ package com.goncalomb.bukkit.nbteditor.nbt.variables;
 import java.util.Arrays;
 import java.util.List;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 import com.goncalomb.bukkit.mylib.reflect.NBTTagCompound;
@@ -55,6 +57,10 @@ public abstract class NBTVariable implements Cloneable {
 	}
 
 	public abstract String getFormat();
+
+	public Component getFormatComponent() {
+		return Component.text(getFormat(), NamedTextColor.YELLOW);
+	}
 
 	public List<String> getPossibleValues() {
 		return null;
