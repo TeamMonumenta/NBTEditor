@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemDisplay;
@@ -688,7 +687,7 @@ public class EntityNBT extends EntityNBTBase {
 			EntityNBT instance = null;
 			// special case for mobs
 			do {
-				if (c.getName() == "Mob") {
+				if (c.getName().equals("Mob")) {
 					instance = new MobNBT(type);
 					break;
 				}

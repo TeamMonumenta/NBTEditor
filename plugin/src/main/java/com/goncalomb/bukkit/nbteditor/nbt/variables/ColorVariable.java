@@ -20,8 +20,6 @@
 package com.goncalomb.bukkit.nbteditor.nbt.variables;
 
 import java.util.Locale;
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.entity.Player;
 
 import com.goncalomb.bukkit.mylib.reflect.NBTTagCompound;
