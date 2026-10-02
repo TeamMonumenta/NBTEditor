@@ -15,7 +15,7 @@ significantly. As of this writing in 2022, the original NBTEditor has been
 abandoned for years. It is unlikely that this fork will ever be reconciled with
 the original NBTEditor should it return to active development. We will do our
 best to develop a usable tool in the spirit of the original NBTEditor, but the
-main priority is as a usuable tool for mob development for Monumenta.
+main priority is as a usable tool for mob development for Monumenta.
 
 Note that we have also developed a complementary plugin,
 [Library of Souls][LibraryOfSouls], which integrates with NBTEditor to manage
