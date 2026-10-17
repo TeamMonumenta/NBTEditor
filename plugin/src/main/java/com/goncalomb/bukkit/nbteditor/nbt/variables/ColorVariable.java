@@ -19,13 +19,12 @@
 
 package com.goncalomb.bukkit.nbteditor.nbt.variables;
 
+import com.goncalomb.bukkit.mylib.reflect.NBTTagCompound;
 import java.util.Locale;
 import org.bukkit.entity.Player;
 
-import com.goncalomb.bukkit.mylib.reflect.NBTTagCompound;
-
 public class ColorVariable extends NBTVariable {
-	private final boolean hasAlpha; // optional alpha channel, can be omitted, minecraft uses ARGB everywhere
+	private final boolean mHasAlpha; // optional alpha channel, can be omitted, minecraft uses ARGB everywhere
 
 	public ColorVariable(String key) {
 		this(key, false);
@@ -33,7 +32,7 @@ public class ColorVariable extends NBTVariable {
 
 	public ColorVariable(String key, boolean hasAlpha) {
 		super(key);
-		this.hasAlpha = hasAlpha;
+		this.mHasAlpha = hasAlpha;
 	}
 
 	@Override
@@ -46,16 +45,16 @@ public class ColorVariable extends NBTVariable {
 		// minor datafixing
 		if (value.length() == 4) { // short format, #123 -> #112233
 			value = value.substring(0, 2) + value.substring(1, 3) + value.substring(2, 4) + value.substring(3, 4);
-		} else if (hasAlpha && value.length() == 5) { // short format but with alpha
+		} else if (mHasAlpha && value.length() == 5) { // short format but with alpha
 			value = value.substring(0, 2) + value.substring(1, 3) + value.substring(2, 4) + value.substring(3, 5) + value.substring(4, 5);
-		} else if (value.length() != 7 && (!hasAlpha || value.length() != 9)) {
+		} else if (value.length() != 7 && (!mHasAlpha || value.length() != 9)) {
 			return false;
 		}
-		if (hasAlpha && value.length() == 7) {
+		if (mHasAlpha && value.length() == 7) {
 			value = "#FF" + value.substring(1); // full opacity
 		}
 
-        try {
+		try {
 			// java doesn't have unsigned ints but this value might use all 32 bits if it has alpha
 			// value will be in [0, 2^32-1], subtract 2^32 from values >= 2^31 to fit in range [-2^31, 2^31-1]
 			long color = Long.decode(value);
@@ -81,8 +80,8 @@ public class ColorVariable extends NBTVariable {
 			colorstr.insert(0, "0");
 		}
 		// hide alpha channel if it's fully opaque
-		if (!hasAlpha || colorstr.substring(0, 2).equals("FF")) {
-            colorstr.replace(0, 2, "");
+		if (!mHasAlpha || colorstr.substring(0, 2).equals("FF")) {
+			colorstr.replace(0, 2, "");
 		}
 		return "#" + colorstr;
 	}
@@ -90,7 +89,7 @@ public class ColorVariable extends NBTVariable {
 	@Override
 	public String getFormat() {
 		return "RGB format, #FFFFFF (e.g. #FF0000 for red)."
-				+ (hasAlpha ? " Accepts alpha channel in the format ARGB, e.g. #80FF0000 for half-transparent red, " +
+				+ (mHasAlpha ? " Accepts alpha channel in the format ARGB, e.g. #80FF0000 for half-transparent red, " +
 				"where FF is fully opaque." : "");
 	}
 

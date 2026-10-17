@@ -1,16 +1,5 @@
 package com.goncalomb.bukkit.nbteditor.commands;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
-
 import com.goncalomb.bukkit.mylib.command.MyCommand;
 import com.goncalomb.bukkit.mylib.command.MyCommandException;
 import com.goncalomb.bukkit.mylib.utils.Utils;
@@ -21,6 +10,15 @@ import com.goncalomb.bukkit.nbteditor.nbt.variables.ListVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.NBTVariable;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.NBTVariableContainer;
 import com.goncalomb.bukkit.nbteditor.nbt.variables.SpecialVariable;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
 public abstract class AbstractNBTCommand<T extends BaseNBT> extends MyCommand {
 
