@@ -64,15 +64,13 @@ public class EnumVariable extends StringVariable {
 		if (mValues.size() == 17) { // exactly one value left
 			component = component.append(Component.text(", ")).append(Component.text(mValues.getLast()));
 		} else if (mValues.size() > 17) {
-			component = component.append(Component.text(", "));
 			Component hover = Component.text(mValues.get(16));
 			for (int i = 17; i < mValues.size(); i++) {
-				component = component.append(Component.text(", ")).append(Component.text(mValues.get(i)));
+				hover = hover.append(Component.text(", ")).append(Component.text(mValues.get(i)));
 			}
-			component = component.append(Component.text(", "));
 			Component last = Component.text("<hover to see %d more values>".formatted(mValues.size() - 16))
 					.hoverEvent(hover);
-			component = component.append(last);
+			component = component.append(Component.text(", ")).append(last);
 		}
 		return component;
 	}
