@@ -25,6 +25,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -155,7 +160,22 @@ public class BookOfSouls {
 		String entityName = EntityTypeMap.getSimpleName(_entityNbt.getEntityType());
 
 		if (resetName) {
-			meta.setDisplayName(_bosCustomItem.getName() + ChatColor.RESET + " - " + ChatColor.RED + entityName);
+			String baseName = _bosCustomItem.getName() + ChatColor.RESET + " - " + ChatColor.RED + entityName;
+			if (_entityNbt.getVariable("Name").get() != null) {
+				String entityCustomName = _entityNbt.getVariable("Name").get();
+				try {
+					Component previousComponent = LegacyComponentSerializer.legacySection().deserialize(baseName);
+					Component nameComponent = JSONComponentSerializer.json().deserialize(entityCustomName);
+					meta.displayName(previousComponent.decoration(TextDecoration.ITALIC, false)
+							.append(Component.text(" - ", NamedTextColor.WHITE))
+							.append(nameComponent.decoration(TextDecoration.OBFUSCATED, false)));
+				} catch (Exception exception) { // if it wasn't json
+					baseName += ChatColor.RESET + " - " + _entityNbt.getVariable("Name").get();
+					meta.setDisplayName(baseName);
+				}
+			} else {
+				meta.setDisplayName(baseName);
+			}
 			meta.setTitle(_bosCustomItem.getName());
 			meta.setAuthor(_author);
 		}
