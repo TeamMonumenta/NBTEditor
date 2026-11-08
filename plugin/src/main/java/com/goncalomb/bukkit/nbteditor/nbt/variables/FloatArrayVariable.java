@@ -31,13 +31,13 @@ public class FloatArrayVariable extends NBTVariable {
 
 	public FloatArrayVariable(String key, int count, float min, float max) {
 		super(key);
-		_count = Math.max(0, Math.min(10, count));
+		_count = Math.max(0, count);
 		_min = min;
 		_max = max;
 	}
 
 	public FloatArrayVariable(String nbtKey, int count) {
-		this(nbtKey, count, -Float.MAX_VALUE, Float.MIN_VALUE);
+		this(nbtKey, count, -Float.MAX_VALUE, Float.MAX_VALUE);
 	}
 
 	@Override
