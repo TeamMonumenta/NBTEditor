@@ -160,8 +160,7 @@ public class BookOfSouls {
 		String entityName = EntityTypeMap.getSimpleName(_entityNbt.getEntityType());
 
 		if (resetName) {
-			String baseName = _bosCustomItem.getName() + ChatColor.RESET + " - " + ChatColor.RED + entityName;
-			meta.setDisplayName(baseName);
+			meta.setDisplayName(_bosCustomItem.getName() + ChatColor.RESET + " - " + ChatColor.RED + entityName);
 			meta.setTitle(_bosCustomItem.getName());
 			meta.setAuthor(_author);
 			if (_entityNbt.getVariable("Name").get() != null) {
