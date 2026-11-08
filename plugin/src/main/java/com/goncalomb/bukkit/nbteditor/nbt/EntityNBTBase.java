@@ -127,11 +127,24 @@ abstract class EntityNBTBase extends BaseNBT {
 
 	public static EntityNBT fromEntity(Entity entity) {
 		EntityNBT entityNbt = EntityNBT.newInstance(entity.getType(), NBTUtils.getEntityNBTData(entity));
+		if (entityNbt == null) {
+			throw new IllegalArgumentException("Cannot create EntityNBT from entity type " + entity.getType());
+		}
 		// When cloning, remove the UUID to force all entities to have a unique one.
-		entityNbt._data.remove("UUIDMost");
-		entityNbt._data.remove("UUIDLeast");
-		entityNbt._data.remove("UUID");
+		recursivelyStripUUID(entityNbt._data);
 		return entityNbt;
+	}
+
+	private static void recursivelyStripUUID(NBTTagCompound tagCompound) {
+		tagCompound.remove("UUIDMost");
+		tagCompound.remove("UUIDLeast");
+		tagCompound.remove("UUID");
+		Object[] passengers = tagCompound.getListAsArray("Passengers");
+		if (passengers != null) {
+			for (Object passenger : passengers) {
+				recursivelyStripUUID((NBTTagCompound) passenger);
+			}
+		}
 	}
 
 	public static EntityNBT unserialize(String serializedData) {
