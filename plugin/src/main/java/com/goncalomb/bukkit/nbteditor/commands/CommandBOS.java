@@ -114,20 +114,6 @@ public class CommandBOS extends AbstractNBTCommand<EntityNBT> {
 
 	@Command(args = "getfromnearest", type = CommandType.PLAYER_ONLY, maxargs = 1, usage = "<entity>")
 	public boolean getfromnearestCommand(CommandSender sender, String[] args) throws MyCommandException {
-//		List<Entity> entities = Bukkit.selectEntities(sender, args[0]);
-//		if (entities.size() > 1) {
-//			sender.sendMessage(Component.text("Only one entity may be selected"));
-//			return false;
-//		} else if (entities.isEmpty()) {
-//			sender.sendMessage(Component.text("No entity was found"));
-//			return false;
-//		} else if (!EntityNBT.isValidType(entities.getFirst().getType())) {
-//			sender.sendMessage(Component.text("That entity cannot be put into a Book of Souls!"));
-//			return false;
-//		}
-//		CommandUtils.checkFullInventory((Player) sender).addItem((new BookOfSouls(EntityNBT.fromEntity(entity))).getBook());
-//		sender.sendMessage("§aEnjoy your Book of Souls.");
-//		return true;
 		if (args.length == 1) {
 			EntityType entityType = EntityTypeMap.getByName(args[0]);
 			if (entityType != null && EntityNBT.isValidType(entityType)) {
