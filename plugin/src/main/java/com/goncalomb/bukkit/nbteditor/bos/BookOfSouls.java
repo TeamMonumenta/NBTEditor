@@ -161,23 +161,22 @@ public class BookOfSouls {
 
 		if (resetName) {
 			String baseName = _bosCustomItem.getName() + ChatColor.RESET + " - " + ChatColor.RED + entityName;
+			meta.setDisplayName(baseName);
+			meta.setTitle(_bosCustomItem.getName());
+			meta.setAuthor(_author);
 			if (_entityNbt.getVariable("Name").get() != null) {
 				String entityCustomName = _entityNbt.getVariable("Name").get();
 				try {
-					Component previousComponent = LegacyComponentSerializer.legacySection().deserialize(baseName);
-					Component nameComponent = JSONComponentSerializer.json().deserialize(entityCustomName);
-					meta.displayName(previousComponent.decoration(TextDecoration.ITALIC, false)
-							.append(Component.text(" - ", NamedTextColor.WHITE))
-							.append(nameComponent.decoration(TextDecoration.OBFUSCATED, false)));
+					Component nameComponent = JSONComponentSerializer.json().deserialize(entityCustomName).decoration(TextDecoration.OBFUSCATED, false);
+					meta.lore(List.of(
+							Component.text("Name: ", NamedTextColor.WHITE)
+									.decoration(TextDecoration.ITALIC, false)
+									.append(nameComponent)
+					));
 				} catch (Exception exception) { // if it wasn't json
-					baseName += ChatColor.RESET + " - " + _entityNbt.getVariable("Name").get();
-					meta.setDisplayName(baseName);
+					meta.setLore(List.of(_entityNbt.getVariable("Name").get()));
 				}
-			} else {
-				meta.setDisplayName(baseName);
 			}
-			meta.setTitle(_bosCustomItem.getName());
-			meta.setAuthor(_author);
 		}
 
 		meta.setPages(new ArrayList<String>());
