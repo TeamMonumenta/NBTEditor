@@ -585,8 +585,7 @@ public class EntityNBT extends EntityNBTBase {
 		cDisplay.add("ShadowRadius", new FloatVariable("shadow_radius", 0, 64));
 		cDisplay.add("ShadowStrength", new FloatVariable("shadow_strength"));
 		cDisplay.add("ViewRange", new FloatVariable("view_range"));
-		// no way in hell i'm figuring out how to implement the fancy tagcompound form in here
-		cDisplay.add("Transformation", new FloatArrayVariable("transformation", 16));
+		cDisplay.add("Transformation", new DisplayTransformVariable("transformation"));
 
 		NBTUnboundVariableContainer cItemDisplay = new NBTUnboundVariableContainer("ItemDisplay", cDisplay);
 		cItemDisplay.add("Item", new SingleItemVariable("item"));

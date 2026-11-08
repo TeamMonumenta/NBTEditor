@@ -25,6 +25,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -158,6 +162,19 @@ public class BookOfSouls {
 			meta.setDisplayName(_bosCustomItem.getName() + ChatColor.RESET + " - " + ChatColor.RED + entityName);
 			meta.setTitle(_bosCustomItem.getName());
 			meta.setAuthor(_author);
+			if (_entityNbt.getVariable("Name").get() != null) {
+				String entityCustomName = _entityNbt.getVariable("Name").get();
+				try {
+					Component nameComponent = JSONComponentSerializer.json().deserialize(entityCustomName).decoration(TextDecoration.OBFUSCATED, false);
+					meta.lore(List.of(
+							Component.text("Name: ", NamedTextColor.WHITE)
+									.decoration(TextDecoration.ITALIC, false)
+									.append(nameComponent)
+					));
+				} catch (Exception exception) { // if it wasn't json
+					meta.setLore(List.of(_entityNbt.getVariable("Name").get()));
+				}
+			}
 		}
 
 		meta.setPages(new ArrayList<String>());
