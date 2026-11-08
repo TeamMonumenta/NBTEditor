@@ -21,6 +21,7 @@ package com.goncalomb.bukkit.nbteditor.commands;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +30,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.CommandBlock;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -108,6 +110,47 @@ public class CommandBOS extends AbstractNBTCommand<EntityNBT> {
 		CommandUtils.checkFullInventory((Player) sender).addItem(BookOfSouls.getEmpty());
 		sender.sendMessage("§aEnjoy your Book of Souls.");
 		return true;
+	}
+
+	@Command(args = "getfromnearest", type = CommandType.PLAYER_ONLY, maxargs = 1, usage = "<entity>")
+	public boolean getfromnearestCommand(CommandSender sender, String[] args) throws MyCommandException {
+//		List<Entity> entities = Bukkit.selectEntities(sender, args[0]);
+//		if (entities.size() > 1) {
+//			sender.sendMessage(Component.text("Only one entity may be selected"));
+//			return false;
+//		} else if (entities.isEmpty()) {
+//			sender.sendMessage(Component.text("No entity was found"));
+//			return false;
+//		} else if (!EntityNBT.isValidType(entities.getFirst().getType())) {
+//			sender.sendMessage(Component.text("That entity cannot be put into a Book of Souls!"));
+//			return false;
+//		}
+//		CommandUtils.checkFullInventory((Player) sender).addItem((new BookOfSouls(EntityNBT.fromEntity(entity))).getBook());
+//		sender.sendMessage("§aEnjoy your Book of Souls.");
+//		return true;
+		if (args.length == 1) {
+			EntityType entityType = EntityTypeMap.getByName(args[0]);
+			if (entityType != null && EntityNBT.isValidType(entityType)) {
+				Player player = (Player) sender;
+				Entity entity = player.getWorld().getNearbyEntities(player.getLocation(), 20, 20, 20).stream()
+						.filter(e -> e.getType() == entityType)
+						.min(Comparator.comparingDouble(e -> player.getLocation().distanceSquared(e.getLocation())))
+						.orElseThrow(() -> new MyCommandException("No entity was found within 20 blocks"));
+				PlayerInventory inv = CommandUtils.checkFullInventory(player);
+				BookOfSouls bos = new BookOfSouls(EntityNBT.fromEntity(entity));
+				inv.addItem(bos.getBook());
+				sender.sendMessage("§aEnjoy your Book of Souls.");
+				return true;
+			}
+			sender.sendMessage("§cInvalid entity!");
+		}
+		sender.sendMessage("§7Entities: " + StringUtils.join(EntityNBT.getValidTypeNames(), ", "));
+		return false;
+	}
+
+	@TabComplete(args = "getfromnearest")
+	public List<String> getfromnearest_tab(CommandSender sender, String[] args) {
+		return (args.length == 1 ? Utils.getElementsWithPrefix(EntityNBT.getValidTypeNames(), args[0], "minecraft:", true) : null);
 	}
 
 	@Command(args = "riding", type = CommandType.PLAYER_ONLY)
